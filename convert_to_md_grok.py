@@ -4,8 +4,8 @@ import json
 from datetime import datetime
 
 # Paths
-csv_path = "F:\\0 - AI & Coding\\Sticky Notes\\Sticky_Notes.csv"
-output_folder = "F:\\0 - AI & Coding\\Sticky Notes\\obsidian_notes"
+csv_path = "F:\\0 - AI & Coding\\Projects\\Sticky Notes\\Sticky_Notes.csv"
+output_folder = "F:\\0 - AI & Coding\\Projects\\Sticky Notes\\obsidian_notes"
 os.makedirs(output_folder, exist_ok=True)
 
 def apply_styles(text, styles):
@@ -54,6 +54,13 @@ updated: {updated_date}
 ---
 """
 
+def parse_timestamp(timestamp_str):
+    """Convert ISO 8601 timestamp string to Unix timestamp in milliseconds."""
+    if isinstance(timestamp_str, (int, float)):
+        return int(timestamp_str)
+    dt = datetime.strptime(timestamp_str, '%Y-%m-%dT%H:%M:%SZ')
+    return int(dt.timestamp() * 1000)  # Convert to milliseconds
+
 # Process CSV
 with open(csv_path, "r", encoding="utf-8") as file:
     reader = csv.DictReader(file)
@@ -65,8 +72,8 @@ with open(csv_path, "r", encoding="utf-8") as file:
         try:
             note_data = json.loads(last_server_version)
             document = note_data["document"]
-            created_at = int(note_data["createdAt"])
-            updated_at = int(note_data["lastModified"])
+            created_at = parse_timestamp(note_data["createdAt"])
+            updated_at = parse_timestamp(note_data["lastModified"])
             
             # Convert content to Markdown
             content = convert_document(document)

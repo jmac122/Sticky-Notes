@@ -3,8 +3,8 @@ import os
 from datetime import datetime
 
 # Path to your CSV and output folder
-csv_path = "F:\\0 - AI & Coding\\052025\\Sticky Notes\\Sticky_Notes.csv"
-output_folder = "F:\\0 - AI & Coding\\052025\\Sticky Notes\\obsidian_notes"
+csv_path = "F:\\0 - AI & Coding\\Projects\\Sticky Notes\\Sticky_Notes.csv"
+output_folder = "F:\\0 - AI & Coding\\Projects\\Sticky Notes\\obsidian_notes"
 os.makedirs(output_folder, exist_ok=True)
 
 def format_date(date_str):
